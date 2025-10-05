@@ -4,20 +4,19 @@ import "./../styles/App.css";
 const App = () => {
   const fruits = ["apple", "banana", "cherry", "date", "elderberry", "fig"];
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState(fruits); // show all initially
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (query.trim() === "") {
-        setSuggestions([]);
+        setSuggestions(fruits); // show all items initially
       } else {
-        // simulate async search with a small delay
         const filtered = fruits.filter((fruit) =>
           fruit.toLowerCase().includes(query.toLowerCase())
         );
         setSuggestions(filtered);
       }
-    }, 300); // delay 300ms
+    }, 300);
 
     return () => clearTimeout(delayDebounce);
   }, [query]);
